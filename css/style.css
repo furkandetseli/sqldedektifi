@@ -465,4 +465,96 @@ button:disabled {
     }
 }
 
+/* Seviye Seçici */
+.level-selector-container {
+    margin-bottom: 1.5rem;
+}
+
+#level-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.level-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
+    border: 2px solid var(--secondary-color);
+    transition: all 0.2s ease;
+}
+
+.level-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.level-btn.current {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.level-btn.completed {
+    background-color: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
+}
+
+.level-btn.locked {
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    border-color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+/* Seviye Geçiş Butonları */
+.level-buttons {
+    margin-top: auto;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+#next-level {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+#next-level:hover {
+    background-color: var(--primary-dark);
+}
+
+#next-level:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* Seviye değişim animasyonu */
+@keyframes levelChangeAnimation {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.level-change-animation {
+    animation: levelChangeAnimation 1.5s ease-in-out;
+}
+
 

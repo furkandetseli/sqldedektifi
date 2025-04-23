@@ -19,19 +19,9 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Üst Panel: Logo ve İlerleme -->
+        <!-- Üst Panel: Logo -->
         <div class="top-panel">
             <div class="app-logo">SQL Dedektifi</div>
-            
-            <div class="progress-tracker">
-                <div class="progress-bar">
-                    <div id="progress-fill" style="width: 0%"></div>
-                </div>
-                <div class="progress-stats">
-                    <span id="completed-levels">0</span>/<span id="total-levels">12</span> Tamamlandı
-                    <span id="progress-percentage">0%</span>
-                </div>
-            </div>
         </div>
         
         <!-- Ana İçerik Alanı -->
@@ -39,7 +29,7 @@
             <!-- Sol Panel: Hikaye ve Görev -->
             <div class="left-panel">
                 <div class="level-header">
-                    <h2 id="current-level-title">Seviye 1: Kayıp Veriler</h2>
+                    <h2 id="level-title">Seviye 1: Kayıp Veriler</h2>
                 </div>
                 
                 <div class="story-container">
@@ -49,7 +39,7 @@
                 </div>
                 
                 <div class="task-container">
-                    <div class="task-box" id="current-task">
+                    <div class="task-box" id="level-task">
                         <!-- Görev JavaScript ile doldurulacak -->
                     </div>
                 </div>
@@ -79,8 +69,8 @@
                     </div>
                     
                     <div class="button-group">
-                        <button id="run-query" onclick="runUserQuery()">Sorguyu Çalıştır</button>
-                        <button id="show-solution" onclick="showSolution()">Çözümü Göster</button>
+                        <button id="run-query">Sorguyu Çalıştır</button>
+                        <button id="show-solution">Çözümü Göster</button>
                     </div>
                 </div>
             </div>
