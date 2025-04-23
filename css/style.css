@@ -1,22 +1,22 @@
 /* Ana Stiller */
 :root {
-    --primary-color: #2563eb;
-    --primary-dark: #1d4ed8;
-    --secondary-color: #475569;
-    --accent-color: #f59e0b;
-    --success-color: #10b981;
-    --error-color: #ef4444;
-    --text-color: #1e293b;
-    --text-light: #64748b;
-    --bg-color: #f8fafc;
+    --primary-color: #2c3e50; /* Koyu mavi-gri dedektif teması için */
+    --primary-dark: #1a252f;
+    --secondary-color: #7f8c8d;
+    --accent-color: #f39c12; /* Dedektif fenerinin sarı ışığı gibi */
+    --success-color: #27ae60;
+    --error-color: #c0392b;
+    --text-color: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-color: #ecf0f1; /* Soluk gri arka plan */
     --card-bg: #ffffff;
-    --border-radius: 8px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-    --font-main: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --border-radius: 6px; /* Daha keskin köşeler */
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.15);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.15);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.2);
+    --font-main: 'Roboto Slab', 'Segoe UI', Tahoma, Geneva, Verdana, serif; /* Dedektif hikayelerine uygun font */
     --font-code: 'Fira Code', 'Courier New', monospace;
-    --sql-editor-height: 200px; /* Sabit SQL editör yüksekliği */
+    --sql-editor-height: 200px;
 }
 
 /* Genel Stiller */
@@ -49,6 +49,7 @@ html, body {
     background-color: var(--primary-color);
     color: white;
     height: 60px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2); /* Gölge ekleyelim */
 }
 
 .app-logo {
@@ -56,6 +57,7 @@ html, body {
     font-weight: 700;
     padding-right: 1.5rem;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
+    font-family: 'Special Elite', cursive; /* Daktilo benzeri font */
 }
 
 .progress-tracker {
@@ -72,6 +74,7 @@ html, body {
     border-radius: 4px;
     overflow: hidden;
     max-width: 300px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.3);
 }
 
 #progress-fill {
@@ -102,7 +105,7 @@ html, body {
 /* Sol Panel */
 .left-panel {
     padding: 1rem;
-    background-color: var(--bg-color);
+    background-color: #f5f7f8; /* Biraz daha açık */
     border-right: 1px solid #e2e8f0;
     overflow-y: auto;
     display: flex;
@@ -111,11 +114,15 @@ html, body {
 
 .level-header {
     margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
 }
 
 .level-header h2 {
     font-size: 1.25rem;
     color: var(--primary-color);
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.5px;
 }
 
 .story-container {
@@ -128,19 +135,37 @@ html, body {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     line-height: 1.6;
+    border-left: 4px solid var(--primary-color);
+    font-style: italic;
+    position: relative;
 }
+
 
 .task-container {
     margin-bottom: 1.5rem;
 }
 
 .task-box {
-    background-color: var(--accent-color);
+    background-color: #34495e; /* Daha koyu bir ton */
     color: white;
     padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     font-weight: 500;
+    position: relative;
+}
+
+.task-box::before {
+    content: "VAKA DOSYASI";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    border-radius: 3px;
+    font-weight: bold;
 }
 
 .hint-container {
@@ -155,6 +180,20 @@ html, body {
     border-left: 4px solid var(--secondary-color);
     font-style: italic;
     color: var(--text-light);
+    position: relative;
+}
+
+.hint::before {
+    content: "İPUCU";
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    border-radius: 3px;
+    font-weight: bold;
 }
 
 .schema-container {
@@ -166,7 +205,8 @@ html, body {
 }
 
 .database-schema {
-    background-color: var(--card-bg);
+    background-color: #2c3e50;
+    color: #ecf0f1;
     padding: 1rem;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
@@ -193,39 +233,52 @@ html, body {
 
 .history-container h3 {
     margin-bottom: 0.75rem;
+    color: var(--primary-color);
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.5px;
 }
 
 #query-history {
     flex: 1;
     overflow-y: auto;
-    background-color: #f8fafc;
+    background-color: #f1f5f9; /* Daha belirgin arka plan */
     border-radius: var(--border-radius);
-    padding: 0.5rem;
-    min-height: 200px;
-    max-height: calc(100vh - 400px);
+    padding: 0.75rem;
+    min-height: 250px; /* Arttırılmış minimum yükseklik */
+    max-height: calc(100vh - 300px); /* Arttırılmış maksimum yükseklik */
 }
 
 .history-item {
     margin-bottom: 0.75rem;
     position: relative;
     background-color: white;
-    border-radius: var(--border-radius);
+    border-radius: 12px; /* Daha yuvarlak köşeler - sohbet balonu etkisi */
     box-shadow: var(--shadow-sm);
     overflow: hidden;
     padding: 0.75rem;
-    max-width: 90%;
+    max-width: 85%; /* Biraz daha dar */
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .history-item.success {
     align-self: flex-end;
-    background-color: #ecfdf5;
-    border-left: 4px solid var(--success-color);
+    background-color: #d6f5e8;
+    border-left: none;
+    border-right: 4px solid var(--success-color);
+    border-bottom-right-radius: 2px; /* Sohbet balonu efekti */
 }
 
 .history-item.error {
     align-self: flex-start;
-    background-color: #fef2f2;
+    background-color: #fde8e8;
     border-left: 4px solid var(--error-color);
+    border-bottom-left-radius: 2px; /* Sohbet balonu efekti */
 }
 
 .query-text {
@@ -234,13 +287,17 @@ html, body {
 
 .query-text pre {
     font-family: var(--font-code);
-    font-size: 0.85rem;
+    font-size: 0.8rem; /* Küçültülmüş yazı */
     white-space: pre-wrap;
     word-break: break-word;
+    background-color: rgba(0,0,0,0.03);
+    padding: 0.5rem;
+    border-radius: 4px;
 }
 
 .query-result {
-    font-size: 0.9rem;
+    font-size: 0.85rem; /* Küçültülmüş yazı */
+    line-height: 1.4;
 }
 
 .query-feedback {
@@ -262,37 +319,64 @@ html, body {
 
 .timestamp {
     position: absolute;
-    top: 0.5rem;
+    bottom: 0.3rem;
     right: 0.5rem;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text-light);
+    font-style: italic;
+}
+
+/* Sorgu tipine göre ikonlar ekleyelim */
+.history-item.success::before {
+    content: "✓";
+    position: absolute;
+    top: 0.4rem;
+    right: 0.5rem;
+    color: var(--success-color);
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.history-item.error::before {
+    content: "!";
+    position: absolute;
+    top: 0.4rem;
+    left: 0.5rem;
+    color: var(--error-color);
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
 /* SQL Editörü */
 .sql-editor-container {
-    padding: 1rem;
-    background-color: white;
-    border-top: 1px solid #e2e8f0;
+    padding: 0.75rem;
+    background-color: #2c3e50;
+    border-top: 1px solid #34495e;
     position: sticky;
     bottom: 0;
     z-index: 10;
+    color: white;
 }
 
 .sql-editor-container h3 {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    color: #ecf0f1;
+    font-size: 0.9rem;
 }
 
 #sql-editor-wrapper {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
 
 .CodeMirror {
-    height: var(--sql-editor-height) !important;
+    height: 150px !important; /* Küçültülmüş yükseklik */
     font-family: var(--font-code);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #34495e;
 }
 
 .button-group {
@@ -309,6 +393,7 @@ button {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 button:active {
@@ -316,12 +401,13 @@ button:active {
 }
 
 #run-query {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--primary-dark);
+    font-weight: bold;
 }
 
 #run-query:hover {
-    background-color: var(--primary-dark);
+    background-color: #e67e22;
 }
 
 .secondary-button {
@@ -339,7 +425,7 @@ button:active {
 }
 
 .success-button:hover {
-    background-color: #0d9488;
+    background-color: #219653; /* Doğru hover rengi */
 }
 
 button:disabled {
@@ -351,20 +437,23 @@ button:disabled {
 .result-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.85rem;
+    font-size: 0.75rem; /* Daha küçük yazı tipi */
     margin-top: 0.5rem;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
 .result-table th {
-    background-color: #f1f5f9;
-    padding: 0.5rem;
+    background-color: #edf2f7;
+    padding: 0.35rem 0.5rem; /* Daha az padding */
     text-align: left;
     font-weight: 600;
 }
 
 .result-table td {
-    padding: 0.5rem;
-    border-top: 1px solid #f1f5f9;
+    padding: 0.35rem 0.5rem; /* Daha az padding */
+    border-top: 1px solid #edf2f7;
 }
 
 .result-table tr:nth-child(even) {
@@ -392,26 +481,29 @@ button:disabled {
 
 /* Şema Tablosu */
 .schema-table {
-    background-color: white;
+    background-color: #34495e;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
+    margin-bottom: 1rem;
 }
 
 .schema-table-name {
-    background-color: var(--primary-color);
+    background-color: var(--primary-dark);
     color: white;
     padding: 0.5rem 1rem;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .schema-columns {
     padding: 0.5rem 1rem;
+    color: #ecf0f1;
 }
 
 .schema-columns div {
     padding: 0.25rem 0;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #2c3e50;
     font-family: var(--font-code);
     font-size: 0.9rem;
 }
@@ -491,6 +583,7 @@ button:disabled {
     cursor: pointer;
     border: 2px solid var(--secondary-color);
     transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .level-btn:hover {
@@ -499,9 +592,9 @@ button:disabled {
 }
 
 .level-btn.current {
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     color: white;
-    border-color: var(--primary-color);
+    border-color: var(--accent-color);
 }
 
 .level-btn.completed {
@@ -511,9 +604,9 @@ button:disabled {
 }
 
 .level-btn.locked {
-    background-color: #e2e8f0;
-    color: #94a3b8;
-    border-color: #cbd5e1;
+    background-color: #bdc3c7;
+    color: #7f8c8d;
+    border-color: #95a5a6;
     cursor: not-allowed;
 }
 
@@ -526,8 +619,8 @@ button:disabled {
 }
 
 #next-level {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--accent-color); /* Dedektif teması için tutarlı renk */
+    color: var(--primary-dark);
     padding: 0.75rem 1.5rem;
     border-radius: var(--border-radius);
     font-weight: 600;
@@ -538,23 +631,12 @@ button:disabled {
 }
 
 #next-level:hover {
-    background-color: var(--primary-dark);
+    background-color: #e67e22;
 }
 
 #next-level:disabled {
     background-color: #94a3b8;
     cursor: not-allowed;
-}
-
-/* Seviye değişim animasyonu */
-@keyframes levelChangeAnimation {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-.level-change-animation {
-    animation: levelChangeAnimation 1.5s ease-in-out;
 }
 
 
