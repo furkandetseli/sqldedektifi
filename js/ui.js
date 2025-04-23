@@ -28,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
         console.error("CodeMirror editörü başlatılırken hata:", error);
     }
+    
+    // Mobil navigasyonu kur
+    setupMobileNavigation();
 });
 
 // Sorgu geçmişini sakla
@@ -261,4 +264,63 @@ function showLevel(levelId) {
     window.currentLevel = levelId;
     
     console.log("Seviye başarıyla gösterildi:", level.title);
-} 
+}
+
+// Mobil navigasyon
+function setupMobileNavigation() {
+    // Mobil olup olmadığını kontrol et
+    const isMobile = window.innerWidth <= 768;
+    
+    if (!isMobile) return;
+    
+    // Mobil navigasyon HTML'ini oluştur
+    const mobileNavHTML = `
+        <div class="mobile-nav">
+            <div class="mobile-nav-tab active" data-target="left-panel">Görev</div>
+            <div class="mobile-nav-tab" data-target="center-panel">Sorgu Geçmişi</div>
+            <div class="mobile-nav-tab database-tab" data-target="right-panel">Veritabanı</div>
+        </div>
+    `;
+    
+    // Mobil navigasyonu ekle
+    document.querySelector('.main-content').insertAdjacentHTML('beforeend', mobileNavHTML);
+    
+    // Tab geçişi için olay dinleyicileri ekle
+    document.querySelectorAll('.mobile-nav-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetPanel = this.getAttribute('data-target');
+            
+            // Tüm tabları inaktif yap
+            document.querySelectorAll('.mobile-nav-tab').forEach(t => t.classList.remove('active'));
+            
+            // Tıklanan tabı aktif yap
+            this.classList.add('active');
+            
+            // Tüm panelleri gizle
+            document.querySelector('.left-panel').classList.add('hidden');
+            document.querySelector('.center-panel').classList.remove('visible');
+            document.querySelector('.right-panel').classList.remove('visible');
+            
+            // Hedef paneli göster
+            if (targetPanel === 'left-panel') {
+                document.querySelector('.left-panel').classList.remove('hidden');
+            } else if (targetPanel === 'center-panel') {
+                document.querySelector('.center-panel').classList.add('visible');
+            } else if (targetPanel === 'right-panel') {
+                document.querySelector('.right-panel').classList.add('visible');
+            }
+        });
+    });
+}
+
+// Pencere boyutu değiştiğinde mobil navigasyonu tekrar kur
+window.addEventListener('resize', function() {
+    // Mevcut mobil navigasyonu kaldır
+    const existingNav = document.querySelector('.mobile-nav');
+    if (existingNav) {
+        existingNav.remove();
+    }
+    
+    // Mobil navigasyonu tekrar kur
+    setupMobileNavigation();
+}); 
