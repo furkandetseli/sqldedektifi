@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Dedektifi</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CodeMirror - SQL Editörü -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Üst Panel: Logo -->
+        <div class="top-panel">
+            <div class="app-logo">SQL Dedektifi</div>
+        </div>
+        
+        <!-- Ana İçerik Alanı -->
+        <div class="main-content">
+            <!-- Sol Panel: Hikaye ve Görev -->
+            <div class="left-panel">
+                <div class="level-header">
+                    <h2 id="level-title">Seviye 1: Kayıp Veriler</h2>
+                </div>
+                
+                <div class="story-container">
+                    <div class="story" id="level-description">
+                        <!-- Seviye açıklaması JavaScript ile doldurulacak -->
+                    </div>
+                </div>
+                
+                <div class="task-container">
+                    <div class="task-box" id="level-task">
+                        <!-- Görev JavaScript ile doldurulacak -->
+                    </div>
+                </div>
+                
+                <div class="hint-container">
+                    <div class="hint" id="level-hint">
+                        <!-- İpucu JavaScript ile doldurulacak -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Orta Panel: Sorgu Geçmişi ve SQL Editörü -->
+            <div class="center-panel">
+                <!-- Sorgu Geçmişi -->
+                <div class="history-container">
+                    <h3>Sorgu Geçmişi</h3>
+                    <div id="query-history">
+                        <!-- Sorgu geçmişi JavaScript ile doldurulacak -->
+                    </div>
+                </div>
+                
+                <!-- SQL Editörü -->
+                <div class="sql-editor-container">
+                    <h3>SQL Sorgunuzu Yazın</h3>
+                    <div id="sql-editor-wrapper">
+                        <textarea id="sql-query" placeholder="SELECT * FROM musteriler"></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button id="run-query">Sorguyu Çalıştır</button>
+                        <button id="show-solution">Çözümü Göster</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sağ Panel: Veritabanı Şeması -->
+            <div class="right-panel">
+                <div class="schema-container">
+                    <h3>Veritabanı Şeması</h3>
+                    <div class="database-schema" id="right-schema-display">
+                        <!-- Şema JavaScript ile doldurulacak -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/alasql@1.7.3/dist/alasql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/sql/sql.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script src="js/database.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+    // Sayfa yüklendikten sonra çalışacak kod
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Sayfa yüklendi");
+        
+        // Veritabanını başlat
+        initDatabase();
+        
+        // Tüm şemaları göster
+        updateSchemaDisplay();
+        
+        // İlk seviyeyi göster
+        showLevel(1);
+    });
+    </script>
+</body>
+</html>
