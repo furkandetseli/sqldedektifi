@@ -104,17 +104,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log("Sayfa yüklendi");
         
-        // Butonlara doğrudan onclick özelliği ekledik, ama yine de event listener'ları kontrol edelim
-        document.getElementById('run-query').addEventListener('click', function() {
-            console.log("Sorguyu Çalıştır butonuna tıklandı");
-            runUserQuery();
-        });
-        
-        document.getElementById('show-solution').addEventListener('click', function() {
-            console.log("Çözümü Göster butonuna tıklandı");
-            showSolution();
-        });
-        
         // Veritabanını başlat
         initDatabase();
         

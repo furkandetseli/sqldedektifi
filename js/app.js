@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seviye seçiciyi oluştur
     createLevelSelector();
     
-    // Event listener'ları ekle
+    // Event listener'ları ekle - HTML'deki inline onclick'ler kaldırıldığından
+    // buradaki event listener'lar çalışacak
     const runQueryBtn = document.getElementById('run-query');
     if (runQueryBtn) {
         runQueryBtn.addEventListener('click', runUserQuery);
