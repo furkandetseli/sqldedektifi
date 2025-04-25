@@ -585,6 +585,9 @@ button:disabled {
 @media (max-width: 768px) {
     :root {
         --sql-editor-height: 200px; /* Mobil için SQL editör yüksekliği */
+        --mobile-nav-height: 45px;  /* Mobil nav yüksekliği */
+        --footer-height: 30px;      /* Footer yüksekliği */
+        --total-bottom-height: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height)); /* Toplam alt yükseklik */
     }
     
     .main-content {
@@ -601,9 +604,10 @@ button:disabled {
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: var(--total-bottom-height); /* Sabit alt boşluk - SQL Editor + Mobile Nav + Footer */
         transition: transform 0.3s ease, opacity 0.3s ease;
-        padding-bottom: calc(var(--sql-editor-height) + 90px); /* SQL editör + mobile nav + footer için alt boşluk (arttırıldı) */
+        padding-bottom: 20px; /* İçerik padding'ini azalttım */
+        height: auto;
     }
     
     .left-panel {
@@ -671,7 +675,7 @@ button:disabled {
     /* SQL editör konteynerini center-panel içinde altta tut */
     .sql-editor-container {
         position: fixed;
-        bottom: 75px; /* mobile nav + footer için boşluk */
+        bottom: calc(var(--mobile-nav-height) + var(--footer-height)); /* mobile nav + footer yüksekliği */
         left: 0;
         right: 0;
         z-index: 30;
@@ -694,12 +698,13 @@ button:disabled {
     .mobile-nav {
         display: flex;
         position: fixed;
-        bottom: 30px; /* Footer yüksekliği kadar yukarıda */
+        bottom: var(--footer-height); /* Footer yüksekliği kadar yukarıda */
         left: 0;
         right: 0;
         background-color: var(--primary-color);
         z-index: 25;
         box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        height: var(--mobile-nav-height);
     }
     
     .mobile-nav-tab {
@@ -790,7 +795,44 @@ button:disabled {
         border-radius: 0;
         padding: 5px;
         font-size: 0.7rem;
-        height: 30px;
+        height: var(--footer-height);
+        position: fixed;
+        z-index: 35;
+    }
+    
+    /* Özel scroll bar için stil ekleyelim - daha küçük ve dokunmatik cihazlara uygun */
+    .left-panel::-webkit-scrollbar,
+    .center-panel::-webkit-scrollbar,
+    .right-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .left-panel::-webkit-scrollbar-thumb,
+    .center-panel::-webkit-scrollbar-thumb,
+    .right-panel::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.2);
+        border-radius: 4px;
+    }
+
+    /* Tüm yükseklik hesaplamaları için ekran boyutuna göre ayarlamalar */
+    @media (max-height: 600px) {
+        :root {
+            --sql-editor-height: 150px; /* Daha kısa ekranlar için SQL editör yüksekliği azaltıldı */
+        }
+        
+        #query-history, .history-container, .right-panel .database-schema {
+            max-height: calc(100vh - var(--total-bottom-height) - 80px);
+        }
+    }
+    
+    @media (max-height: 500px) {
+        :root {
+            --sql-editor-height: 120px; /* Çok kısa ekranlar için SQL editör yüksekliği daha da azaltıldı */
+        }
+        
+        #query-history, .history-container, .right-panel .database-schema {
+            max-height: calc(100vh - var(--total-bottom-height) - 60px);
+        }
     }
 }
 
@@ -1002,17 +1044,6 @@ button:disabled {
     text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-    .footer {
-        left: 0;
-        right: 0;
-        text-align: center;
-        border-radius: 0;
-        padding: 5px;
-        font-size: 0.7rem;
-    }
-}
-
 @media (min-width: 769px) {
     .sql-editor-container {
         width: auto; /* otomatik genişlik */
@@ -1036,6 +1067,13 @@ button:disabled {
     transform: translateX(0);
     opacity: 1;
     z-index: 6; /* Görünür olduğunda diğer panellerden daha yüksek z-index */
+}
+
+/* Alt öğelerin üst üste binmesini engelle */
+#query-history, .history-container, .right-panel .database-schema {
+    padding-bottom: 20px; /* Alt padding azaltıldı */
+    max-height: calc(100vh - var(--total-bottom-height) - 120px); /* Ekran yüksekliği - alt öğeler - üst boşluk */
+    overflow-y: auto;
 }
 
 
