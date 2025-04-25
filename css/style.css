@@ -584,10 +584,9 @@ button:disabled {
 
 @media (max-width: 768px) {
     :root {
-        --sql-editor-height: 200px; /* Mobil için SQL editör yüksekliği */
+        --sql-editor-height: 150px; /* Daha kısa SQL editör */
         --mobile-nav-height: 45px;  /* Mobil nav yüksekliği */
         --footer-height: 30px;      /* Footer yüksekliği */
-        --total-bottom-height: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height)); /* Toplam alt yükseklik */
     }
     
     .main-content {
@@ -595,19 +594,19 @@ button:disabled {
         grid-template-rows: auto 1fr;
         overflow-y: auto;
         position: relative;
-        padding-bottom: 0; /* Mobilde padding-bottom kaldırılıyor çünkü paneller absolute pozisyonlanmış */
+        padding-bottom: 0;
     }
     
+    /* Paneller için genel stil */
     .left-panel, .center-panel, .right-panel {
         overflow-y: auto;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        bottom: var(--total-bottom-height); /* Sabit alt boşluk - SQL Editor + Mobile Nav + Footer */
+        bottom: 0; /* Tam yükseklik */
         transition: transform 0.3s ease, opacity 0.3s ease;
-        padding-bottom: 20px; /* İçerik padding'ini azalttım */
-        height: auto;
+        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 20px); /* Alt öğeler için padding */
     }
     
     .left-panel {
@@ -633,15 +632,77 @@ button:disabled {
         padding: 1rem;
     }
     
+    /* Görünürlük sınıfları */
+    .left-panel.hidden {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    
+    .center-panel.visible {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    
     .right-panel.visible {
         transform: translateX(0);
         opacity: 1;
-        z-index: 6; /* Görünür olduğunda diğer panellerden daha yüksek z-index */
+        z-index: 6;
+    }
+    
+    /* SQL editör konteyneri */
+    .sql-editor-container {
+        position: fixed;
+        bottom: calc(var(--mobile-nav-height) + var(--footer-height));
+        left: 0;
+        right: 0;
+        z-index: 30;
+        padding: 0.75rem;
+        background-color: #2c3e50;
+        border-top: 1px solid #34495e;
+        color: white;
+        max-height: var(--sql-editor-height);
+        overflow-y: auto;
+    }
+    
+    /* Mob nav */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: var(--footer-height);
+        left: 0;
+        right: 0;
+        background-color: var(--primary-color);
+        z-index: 25;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        height: var(--mobile-nav-height);
+    }
+    
+    /* Footer */
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        border-radius: 0;
+        padding: 5px;
+        font-size: 0.7rem;
+        height: var(--footer-height);
+        z-index: 35;
+    }
+    
+    /* İçerik konteynerleri */
+    .history-container {
+        flex: 1;
+        overflow-y: auto;
+    }
+    
+    #query-history {
+        min-height: 200px;
     }
     
     .right-panel .schema-container {
         height: auto;
-        padding-bottom: 150px; /* Alt kısımda fazladan boşluk bırak */
     }
     
     .right-panel .database-schema {
@@ -651,8 +712,9 @@ button:disabled {
         background-color: transparent;
     }
     
+    /* Şema tablosu */
     .schema-table {
-        margin-bottom: 25px; /* Tablo aralarında daha fazla boşluk */
+        margin-bottom: 25px;
         display: block;
         max-width: 100%;
         overflow: visible;
@@ -672,74 +734,22 @@ button:disabled {
         font-size: 0.85rem;
     }
     
-    /* SQL editör konteynerini center-panel içinde altta tut */
-    .sql-editor-container {
-        position: fixed;
-        bottom: calc(var(--mobile-nav-height) + var(--footer-height)); /* mobile nav + footer yüksekliği */
-        left: 0;
-        right: 0;
-        z-index: 30;
-        padding: 0.75rem;
-        background-color: #2c3e50;
-        border-top: 1px solid #34495e;
-        color: white;
-        height: auto; /* Yüksekliği içeriğe göre ayarla */
+    /* Ekranı daha verimli kullanmak için */
+    @media (max-height: 600px) {
+        :root {
+            --sql-editor-height: 120px;
+        }
     }
     
-    /* Center panel içindeki history container */
-    .center-panel .history-container {
-        flex: 1;
-        padding-bottom: 1rem;
-        overflow-y: auto;
-        max-height: calc(100% - 190px); /* Arttırılmış alan */
+    @media (max-height: 500px) {
+        :root {
+            --sql-editor-height: 100px;
+        }
     }
     
-    /* Mobil tab navigasyonu */
-    .mobile-nav {
-        display: flex;
-        position: fixed;
-        bottom: var(--footer-height); /* Footer yüksekliği kadar yukarıda */
-        left: 0;
-        right: 0;
-        background-color: var(--primary-color);
-        z-index: 25;
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-        height: var(--mobile-nav-height);
-    }
+    /* Diğer stiller... */
     
-    .mobile-nav-tab {
-        flex: 1;
-        padding: 0.75rem 0.5rem;
-        text-align: center;
-        color: white;
-        font-weight: 500;
-        border-top: 3px solid transparent;
-        cursor: pointer;
-        transition: background-color 0.2s;
-        font-size: 0.85rem;
-    }
-    
-    .mobile-nav-tab.active {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-top-color: var(--accent-color);
-    }
-    
-    .mobile-nav-tab:first-child::before {
-        content: "📋";
-        margin-right: 0.3rem;
-    }
-    
-    .mobile-nav-tab:last-child::before {
-        content: "💬";
-        margin-right: 0.3rem;
-    }
-    
-    /* Sağ panel tabı */
-    .mobile-nav-tab.database-tab::before {
-        content: "🗃️";
-        margin-right: 0.3rem;
-    }
-    
+    /* Panel içeriklerinin daha iyi görünmesi için */
     .top-panel {
         height: auto;
         flex-direction: column;
@@ -763,19 +773,17 @@ button:disabled {
         max-width: none;
     }
     
+    /* CodeMirror editörü için */
     .CodeMirror {
-        height: var(--sql-editor-height) !important;
+        height: calc(var(--sql-editor-height) - 30px) !important;
     }
     
+    /* Geçmiş öğeleri için */
     .history-item {
         max-width: 95%;
     }
     
-    #query-history {
-        min-height: 200px;
-        max-height: none;
-    }
-    
+    /* Butonlar */
     .button-group {
         flex-wrap: wrap;
         justify-content: space-between;
@@ -786,21 +794,7 @@ button:disabled {
         font-size: 0.9rem;
     }
     
-    /* Footer mobil görünümü */
-    .footer {
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        border-radius: 0;
-        padding: 5px;
-        font-size: 0.7rem;
-        height: var(--footer-height);
-        position: fixed;
-        z-index: 35;
-    }
-    
-    /* Özel scroll bar için stil ekleyelim - daha küçük ve dokunmatik cihazlara uygun */
+    /* Özel scroll bar için stil - daha küçük ve dokunmatik cihazlara uygun */
     .left-panel::-webkit-scrollbar,
     .center-panel::-webkit-scrollbar,
     .right-panel::-webkit-scrollbar {
@@ -812,27 +806,6 @@ button:disabled {
     .right-panel::-webkit-scrollbar-thumb {
         background-color: rgba(0,0,0,0.2);
         border-radius: 4px;
-    }
-
-    /* Tüm yükseklik hesaplamaları için ekran boyutuna göre ayarlamalar */
-    @media (max-height: 600px) {
-        :root {
-            --sql-editor-height: 150px; /* Daha kısa ekranlar için SQL editör yüksekliği azaltıldı */
-        }
-        
-        #query-history, .history-container, .right-panel .database-schema {
-            max-height: calc(100vh - var(--total-bottom-height) - 80px);
-        }
-    }
-    
-    @media (max-height: 500px) {
-        :root {
-            --sql-editor-height: 120px; /* Çok kısa ekranlar için SQL editör yüksekliği daha da azaltıldı */
-        }
-        
-        #query-history, .history-container, .right-panel .database-schema {
-            max-height: calc(100vh - var(--total-bottom-height) - 60px);
-        }
     }
 }
 
@@ -1053,27 +1026,38 @@ button:disabled {
     }
 }
 
-.left-panel.hidden {
-    transform: translateX(-100%);
-    opacity: 0;
+/* Mobil nav sekmeleri */
+.mobile-nav-tab {
+    flex: 1;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    border-top: 3px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.85rem;
 }
 
-.center-panel.visible {
-    transform: translateX(0);
-    opacity: 1;
+.mobile-nav-tab.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent-color);
 }
 
-.right-panel.visible {
-    transform: translateX(0);
-    opacity: 1;
-    z-index: 6; /* Görünür olduğunda diğer panellerden daha yüksek z-index */
+.mobile-nav-tab:first-child::before {
+    content: "📋";
+    margin-right: 0.3rem;
 }
 
-/* Alt öğelerin üst üste binmesini engelle */
-#query-history, .history-container, .right-panel .database-schema {
-    padding-bottom: 20px; /* Alt padding azaltıldı */
-    max-height: calc(100vh - var(--total-bottom-height) - 120px); /* Ekran yüksekliği - alt öğeler - üst boşluk */
-    overflow-y: auto;
+.mobile-nav-tab:last-child::before {
+    content: "💬";
+    margin-right: 0.3rem;
+}
+
+/* Sağ panel tabı */
+.mobile-nav-tab.database-tab::before {
+    content: "🗃️";
+    margin-right: 0.3rem;
 }
 
 
