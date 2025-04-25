@@ -584,9 +584,10 @@ button:disabled {
 
 @media (max-width: 768px) {
     :root {
-        --sql-editor-height: 120px; /* Daha küçük SQL editör */
+        --sql-editor-height: 150px; /* Daha büyük SQL editör yüksekliği */
         --mobile-nav-height: 45px;  /* Mobil nav yüksekliği */
         --footer-height: 30px;      /* Footer yüksekliği */
+        --bottom-space: 10px;       /* Alt boşluk */
     }
     
     .main-content {
@@ -662,7 +663,7 @@ button:disabled {
         right: 0;
         bottom: 0; /* Tam yükseklik */
         transition: transform 0.3s ease, opacity 0.3s ease;
-        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 20px); /* SQL editör için daha fazla boşluk */
+        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 40px); /* SQL editör için daha fazla boşluk */
     }
     
     .left-panel {
@@ -710,17 +711,17 @@ button:disabled {
     /* SQL editör konteyneri */
     .sql-editor-container {
         position: fixed;
-        bottom: calc(var(--mobile-nav-height) + var(--footer-height));
+        bottom: calc(var(--mobile-nav-height) + var(--footer-height) + var(--bottom-space));
         left: 0;
         right: 0;
-        z-index: 30;
+        z-index: 20; /* z-index düşürüldü */
         padding: 0.75rem;
         background-color: #2c3e50;
         border-top: 1px solid #34495e;
         color: white;
         max-height: none;
         overflow-y: visible;
-        box-shadow: 0 -4px 10px rgba(0,0,0,0.1); /* Gölge ekleyerek daha görünür hale getiriyoruz */
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
     }
     
     /* Sorgu çalıştır butonu */
@@ -770,7 +771,7 @@ button:disabled {
         left: 0;
         right: 0;
         background-color: var(--primary-color);
-        z-index: 25;
+        z-index: 30; /* Z-index arttırıldı */
         box-shadow: 0 -2px 5px rgba(0,0,0,0.15);
         height: var(--mobile-nav-height);
     }
@@ -787,6 +788,7 @@ button:disabled {
         font-size: 0.7rem;
         height: var(--footer-height);
         z-index: 35;
+        background-color: var(--primary-color); /* Arka plan rengi eklendi */
     }
     
     /* İçerik konteynerleri */
@@ -841,7 +843,7 @@ button:disabled {
     
     @media (max-height: 600px) {
         :root {
-            --sql-editor-height: 100px; /* Daha da küçük SQL editör */
+            --sql-editor-height: 120px; /* Daha küçük SQL editör */
             --mobile-nav-height: 40px;  /* Daha küçük mobil nav */
         }
         
@@ -864,9 +866,10 @@ button:disabled {
     
     @media (max-height: 500px) {
         :root {
-            --sql-editor-height: 80px;
+            --sql-editor-height: 100px;
             --mobile-nav-height: 35px;
             --footer-height: 25px;
+            --bottom-space: 5px;
         }
         
         #query-history {
@@ -906,9 +909,10 @@ button:disabled {
     
     @media (max-height: 400px) {
         :root {
-            --sql-editor-height: 70px;
+            --sql-editor-height: 90px;
             --mobile-nav-height: 30px;
             --footer-height: 20px;
+            --bottom-space: 5px;
         }
         
         #query-history {
@@ -989,7 +993,7 @@ button:disabled {
     .center-panel.visible {
         transform: translateX(0);
         opacity: 1;
-        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 20px);
+        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 40px); /* Alt boşluk arttırıldı */
     }
     
     /* Fixed positioned alt bileşenler */
@@ -997,9 +1001,28 @@ button:disabled {
         position: fixed;
     }
     
-    /* İçeriğin kaydırılabilir olması için margin-bottom ekliyoruz */
+    /* İçeriğin kaydırılabilir olması için ekstra alt margin */
     #query-history {
-        padding-bottom: 20px;
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+    }
+    
+    /* Sorgu geçmişi ile SQL editör arasındaki boşluk */
+    .mobile-separator {
+        display: block;
+        height: 1px;
+        background-color: #34495e;
+        margin: 0;
+        width: 100%;
+        position: fixed;
+        bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + var(--bottom-space));
+        z-index: 19;
+    }
+    
+    /* Butonlar için tam genişlik ve daha iyi dokunmatik alan */
+    #run-query, #show-solution {
+        padding: 0.8rem;
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -1257,17 +1280,4 @@ button:disabled {
 /* Sorgu geçmişi ile SQL editör arasındaki boşluk */
 .mobile-separator {
     display: none;
-}
-
-@media (max-width: 768px) {
-    .mobile-separator {
-        display: block;
-        height: 1px;
-        background-color: #34495e;
-        margin: 0;
-        width: 100%;
-        position: fixed;
-        bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height));
-        z-index: 29;
-    }
 }
