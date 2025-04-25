@@ -428,6 +428,9 @@ button {
     transition: background-color 0.2s, transform 0.1s;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     position: relative; /* Pozisyon ayarlaması ekleyelim */
+    -webkit-appearance: none; /* Safari desteği */
+    -moz-appearance: none;
+    appearance: none;
 }
 
 button:active {
@@ -723,6 +726,8 @@ button:disabled {
         max-height: none;
         overflow-y: visible;
         box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+        transform: translateZ(0); /* Safari için hardware acceleration */
+        -webkit-transform: translateZ(0); /* Safari için hardware acceleration */
     }
     
     /* Sorgu çalıştır butonu */
@@ -738,6 +743,10 @@ button:disabled {
         border-radius: var(--border-radius);
         position: relative;
         z-index: 22; /* Buton için z-index */
+        transform: translateZ(0); /* Safari için hardware acceleration */
+        -webkit-transform: translateZ(0);
+        -webkit-appearance: none; /* Safari için buton görünümü düzeltmesi */
+        -webkit-backface-visibility: hidden; /* Safari için rendering sorunlarını önleme */
     }
     
     /* Çözümü göster butonu */
@@ -752,6 +761,10 @@ button:disabled {
         box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Hafif gölge */
         position: relative;
         z-index: 22; /* Buton için z-index */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        -webkit-appearance: none;
+        -webkit-backface-visibility: hidden;
     }
     
     /* Buton grubu */
@@ -762,6 +775,9 @@ button:disabled {
         margin-top: 0.75rem;
         position: relative;
         z-index: 25; /* Buton grubu için z-index */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
     }
     
     /* CodeMirror editörü için */
@@ -781,6 +797,8 @@ button:disabled {
         z-index: 30; /* Z-index arttırıldı */
         box-shadow: 0 -2px 5px rgba(0,0,0,0.15);
         height: var(--mobile-nav-height);
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
     
     /* Footer */
@@ -796,6 +814,8 @@ button:disabled {
         height: var(--footer-height);
         z-index: 35;
         background-color: var(--primary-color); /* Arka plan rengi eklendi */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
     
     /* İçerik konteynerleri */
@@ -1043,6 +1063,9 @@ button:disabled {
         touch-action: manipulation; /* Dokunmatik gecikmesini azaltır */
         position: relative;
         z-index: 22;
+        -webkit-appearance: none; /* Safari için buton görünümü düzeltmesi */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
 }
 
