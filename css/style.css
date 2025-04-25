@@ -589,6 +589,7 @@ button:disabled {
         --mobile-nav-height: 45px;  /* Mobil nav yüksekliği */
         --footer-height: 30px;      /* Footer yüksekliği */
         --bottom-space: 10px;       /* Alt boşluk */
+        --header-height: 45px;      /* Düşürülmüş header yüksekliği */
     }
     
     .main-content {
@@ -597,6 +598,7 @@ button:disabled {
         overflow-y: auto;
         position: relative;
         padding-bottom: 0;
+        margin-top: var(--header-height);
     }
     
     /* Left panel ve center panel için üst kısım daha büyük olsun */
@@ -665,6 +667,7 @@ button:disabled {
         bottom: 0; /* Tam yükseklik */
         transition: transform 0.3s ease, opacity 0.3s ease;
         padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 40px); /* SQL editör için daha fazla boşluk */
+        margin-top: var(--header-height); /* Header'a göre ayarlama */
     }
     
     .left-panel {
@@ -715,7 +718,7 @@ button:disabled {
         bottom: calc(var(--mobile-nav-height) + var(--footer-height) + var(--bottom-space));
         left: 0;
         right: 0;
-        z-index: 20; /* z-index düşürüldü */
+        z-index: 28; /* z-index daha da arttırıldı */
         padding: 0.75rem;
         background-color: #2c3e50;
         border-top: 1px solid #34495e;
@@ -737,7 +740,7 @@ button:disabled {
         text-align: center;
         border-radius: var(--border-radius);
         position: relative;
-        z-index: 22; /* Buton için z-index */
+        z-index: 29; /* Arttırılmış z-index */
     }
     
     /* Çözümü göster butonu */
@@ -751,7 +754,7 @@ button:disabled {
         border-radius: var(--border-radius);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Hafif gölge */
         position: relative;
-        z-index: 22; /* Buton için z-index */
+        z-index: 29; /* Arttırılmış z-index */
     }
     
     /* Buton grubu */
@@ -761,7 +764,7 @@ button:disabled {
         gap: 0.75rem;
         margin-top: 0.75rem;
         position: relative;
-        z-index: 25; /* Buton grubu için z-index */
+        z-index: 29; /* Arttırılmış z-index */
     }
     
     /* CodeMirror editörü için */
@@ -850,8 +853,9 @@ button:disabled {
     
     @media (max-height: 600px) {
         :root {
-            --sql-editor-height: 120px; /* Daha küçük SQL editör */
-            --mobile-nav-height: 40px;  /* Daha küçük mobil nav */
+            --header-height: 40px;
+            --sql-editor-height: 120px;
+            --mobile-nav-height: 40px;
         }
         
         #query-history {
@@ -869,10 +873,20 @@ button:disabled {
         #run-query, #show-solution {
             padding: 0.5rem;
         }
+        
+        .app-logo {
+            font-size: 1rem;
+            padding: 0.2rem 0.4rem;
+        }
+        
+        .progress-bar {
+            height: 5px;
+        }
     }
     
     @media (max-height: 500px) {
         :root {
+            --header-height: 35px;
             --sql-editor-height: 100px;
             --mobile-nav-height: 35px;
             --footer-height: 25px;
@@ -922,6 +936,7 @@ button:disabled {
     
     @media (max-height: 400px) {
         :root {
+            --header-height: 30px;
             --sql-editor-height: 90px;
             --mobile-nav-height: 30px;
             --footer-height: 20px;
@@ -952,26 +967,36 @@ button:disabled {
     
     /* Panel içeriklerinin daha iyi görünmesi için */
     .top-panel {
-        height: auto;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 0.75rem;
+        height: var(--header-height);
+        max-height: var(--header-height);
+        min-height: var(--header-height);
+        flex-direction: row; /* Yeniden yan yana düzen */
+        align-items: center;
+        padding: 0.3rem 0.5rem;
+        position: fixed; /* Sabit konum */
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 40;
     }
     
     .app-logo {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.75rem 0;
-        margin-bottom: 0.75rem;
-        text-align: center;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: none;
+        padding: 0.3rem 0.5rem;
+        margin-bottom: 0;
+        text-align: left;
+        font-size: 1.1rem;
     }
     
     .progress-tracker {
-        margin-left: 0;
+        margin-left: 0.5rem;
+        flex: 1;
     }
     
     .progress-bar {
         max-width: none;
+        height: 6px;
     }
     
     /* Geçmiş öğeleri için */
@@ -1042,7 +1067,7 @@ button:disabled {
         -webkit-touch-callout: none; /* iOS'ta uzun dokunma menüsünü engeller */
         touch-action: manipulation; /* Dokunmatik gecikmesini azaltır */
         position: relative;
-        z-index: 22;
+        z-index: 29; /* Arttırılmış z-index */
     }
 }
 
@@ -1095,6 +1120,15 @@ button:disabled {
         width: 100%;
         margin: 0;
         padding: 0.6rem;
+    }
+    
+    /* Header için daha küçük font */
+    .app-logo {
+        font-size: 0.9rem;
+    }
+    
+    .progress-stats {
+        font-size: 0.7rem;
     }
 }
 
