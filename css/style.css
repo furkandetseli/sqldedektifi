@@ -597,6 +597,62 @@ button:disabled {
         padding-bottom: 0;
     }
     
+    /* Left panel ve center panel için üst kısım daha büyük olsun */
+    .left-panel, .center-panel, .right-panel {
+        padding-top: 0.5rem;
+    }
+    
+    /* History container ve içindeki elemanlar için düzenlemeler */
+    .history-container {
+        flex: 1;
+        overflow-y: auto;
+        padding-top: 0.25rem;
+        padding-bottom: 0.5rem;
+        position: relative;
+    }
+    
+    .history-container::after {
+        content: "";
+        display: block;
+        height: 30px; /* Alt kısımda fazladan boşluk */
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(to bottom, transparent, rgba(236, 240, 241, 0.9)); /* Geçiş efekti */
+        pointer-events: none; /* Altındaki içeriğe tıklanabilir kalması için */
+    }
+    
+    /* Sorgu geçmişinin daha yukarıda görünmesi için */
+    #query-history {
+        min-height: auto;
+        max-height: calc(100vh - 450px); /* Daha da küçük bir yükseklik */
+        display: block;
+        width: 100%;
+        margin-top: 0.25rem;
+        overflow-x: auto;
+        margin-bottom: 20px; /* Alt kısımda ekstra boşluk */
+    }
+    
+    /* Sorgu geçmişindeki tablo için stil */
+    .result-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        background-color: white;
+        overflow: visible;
+    }
+    
+    .result-table th, .result-table td {
+        padding: 0.5rem;
+        text-align: left;
+        white-space: nowrap;
+    }
+    
+    .result-table tr:nth-child(even) {
+        background-color: #f8fafc;
+    }
+    
     /* Paneller için genel stil */
     .left-panel, .center-panel, .right-panel {
         overflow-y: auto;
@@ -606,7 +662,7 @@ button:disabled {
         right: 0;
         bottom: 0; /* Tam yükseklik */
         transition: transform 0.3s ease, opacity 0.3s ease;
-        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 20px); /* Alt öğeler için padding */
+        padding-bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height) + 20px); /* SQL editör için daha fazla boşluk */
     }
     
     .left-panel {
@@ -777,11 +833,25 @@ button:disabled {
         :root {
             --sql-editor-height: 120px;
         }
+        
+        #query-history {
+            max-height: calc(100vh - 400px);
+        }
     }
     
     @media (max-height: 500px) {
         :root {
             --sql-editor-height: 100px;
+        }
+        
+        #query-history {
+            max-height: calc(100vh - 370px);
+        }
+    }
+    
+    @media (max-height: 400px) {
+        #query-history {
+            max-height: calc(100vh - 340px);
         }
     }
     
@@ -1093,4 +1163,20 @@ button:disabled {
     margin-right: 0.3rem;
 }
 
+/* Sorgu geçmişi ile SQL editör arasındaki boşluk */
+.mobile-separator {
+    display: none;
+}
 
+@media (max-width: 768px) {
+    .mobile-separator {
+        display: block;
+        height: 1px;
+        background-color: #34495e;
+        margin: 0;
+        width: 100%;
+        position: fixed;
+        bottom: calc(var(--sql-editor-height) + var(--mobile-nav-height) + var(--footer-height));
+        z-index: 29;
+    }
+}
