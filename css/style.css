@@ -660,8 +660,46 @@ button:disabled {
         background-color: #2c3e50;
         border-top: 1px solid #34495e;
         color: white;
-        max-height: var(--sql-editor-height);
-        overflow-y: auto;
+        max-height: none;
+        overflow-y: visible;
+    }
+    
+    /* Sorgu çalıştır butonu */
+    #run-query {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        background-color: var(--accent-color);
+        color: var(--primary-dark);
+        font-weight: bold;
+        padding: 0.75rem;
+        text-align: center;
+        border-radius: var(--border-radius);
+    }
+    
+    /* Çözümü göster butonu */
+    #show-solution {
+        display: block;
+        width: 100%;
+        background-color: #e2e8f0;
+        color: var(--secondary-color);
+        padding: 0.75rem;
+        text-align: center;
+        border-radius: var(--border-radius);
+    }
+    
+    /* Buton grubu */
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+    }
+    
+    /* CodeMirror editörü için */
+    .CodeMirror {
+        height: 100px !important;
+        border-radius: var(--border-radius);
     }
     
     /* Mob nav */
@@ -771,11 +809,6 @@ button:disabled {
     
     .progress-bar {
         max-width: none;
-    }
-    
-    /* CodeMirror editörü için */
-    .CodeMirror {
-        height: calc(var(--sql-editor-height) - 30px) !important;
     }
     
     /* Geçmiş öğeleri için */
